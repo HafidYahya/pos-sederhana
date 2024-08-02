@@ -1,10 +1,11 @@
 <?php
 session_start();
-if(!isset($_SESSION["kasir"])){
-    header('Location:../../index.php');
+if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "kasir") {
+    header('Location: ../../index.php');
+    exit;
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -202,7 +203,18 @@ if(!isset($_SESSION["kasir"])){
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex justify-content-center">
-                    <a class="btn btn-danger" href="logout.php" role="button">Log out</a>
+                    <button type="button" class="btn btn-danger" onclick="Swal.fire({
+                         title: 'Are you sure you want to exit?', 
+                         showConfirmButton: true, 
+                         confirmButtonColor: 'red',
+                         showCancelButton: true, 
+                         confirmButtonText: 'Yes' ,
+                         cancelButtonText: `No` 
+                         }).then((result)=> {
+                         if (result.isConfirmed) {
+                         window.location.href='logout.php';
+                         }
+                        });">Log Out</button>
                 </div>
 
                 <!-- SidebarSearch Form -->
@@ -961,6 +973,8 @@ if(!isset($_SESSION["kasir"])){
     <script src="../dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="../dist/js/pages/dashboard.js"></script>
+    <!-- SweetAlert -->
+    <script src="../../assets/dist/sweetalert2.all.min.js"></script>
 </body>
 
 </html>

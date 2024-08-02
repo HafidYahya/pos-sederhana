@@ -17,18 +17,26 @@ function registrasi($data){
     $result1 = $ress->get_result();
 
     if(mysqli_fetch_assoc($result1)){
-        echo "
-        <script>
-        alert('Username $username sudah dipakai');
-        </script>
-        ";
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Username $username is already in use',
+                  showConfirmButton: true
+    });
+              </script>";
         return false;
     }
 
-// cek password
+// cek password 
     if($password !== $password1){
-        echo "<script>
-              alert('Konfirmasi password gagal');
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Password does not match',
+                  showConfirmButton: true
+    });
               </script>";
        return false;
     }

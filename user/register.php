@@ -1,17 +1,3 @@
-<?php
-require '../app/functions.php';
-
-if(isset($_POST["register"])){
-    if(registrasi($_POST)){
-        echo "<script> 
-                 alert('Pendaftaran Berhasil'); 
-                 window.location.href = '../index.php' 
-              </script>";
-    }
-    mysqli_error($conn);
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +15,8 @@ if(isset($_POST["register"])){
     <link rel="stylesheet" href="../app/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../app/dist/css/adminlte.min.css">
+    <!-- SweetAlert -->
+    <script src="../assets/dist/sweetalert2.all.min.js"></script>
 </head>
 
 <body class="hold-transition register-page">
@@ -42,7 +30,8 @@ if(isset($_POST["register"])){
 
                 <form action="" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" name="username" class="form-control" placeholder="Username" id="username">
+                        <input type="text" name="username" class="form-control" placeholder="Username" id="username"
+                            required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <label for="username" class="fas fa-user"></label>
@@ -50,8 +39,8 @@ if(isset($_POST["register"])){
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password"
-                            id="password">
+                        <input type="password" name="password" class="form-control" placeholder="Password" id="password"
+                            required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <label for="password" class="fas fa-lock"></label>
@@ -60,7 +49,7 @@ if(isset($_POST["register"])){
                     </div>
                     <div class="input-group mb-3">
                         <input type="password" name="password1" class="form-control" placeholder="Retype password"
-                            id="password1">
+                            id="password1" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <label for="password1" class="fas fa-lock"></label>
@@ -68,7 +57,7 @@ if(isset($_POST["register"])){
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <select name="role" id="role" class="form-control">
+                        <select name="role" id="role" class="form-control" required>
                             <option value="" disabled selected style="color:#f5f5f5;">-- Choose Role --</option>
                             <option value="admin">Admin</option>
                             <option value="kasir">Kasir</option>
@@ -101,6 +90,30 @@ if(isset($_POST["register"])){
     <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="../../dist/js/adminlte.min.js"></script>
+
 </body>
 
 </html>
+<!-- php code -->
+<?php
+require '../app/functions.php';
+
+if(isset($_POST["register"])){
+    if(registrasi($_POST)){
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Registration successful',
+                  showConfirmButton: true
+                  }).then((result) =>{
+                      if(result.isConfirmed){
+                      window.location.href='../index.php';
+                      }
+    });
+              </script>";
+    }
+    mysqli_error($conn);
+}
+
+?>

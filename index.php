@@ -1,12 +1,14 @@
 <?php
 session_start();
 require 'app/functions.php';
-if(isset($_SESSION["admin"])){
-  header('Location:app/public/admin.php');
-  exit;
-}else if(isset($_SESSION["kasir"])){
-  header('Location:app/public/kasir.php');
-  exit;
+if(isset($_SESSION["role"])){
+    if($_SESSION["role"] === "admin"){
+        header('Location:app/public/admin.php');
+        exit;
+    }else if($_SESSION["role"] === "kasir"){
+        header('Location:app/public/kasir.php');
+        exit;
+    }  
 }
 
 if(isset($_POST["login"])){
