@@ -193,11 +193,19 @@ if (!isset($_SESSION["role"]) || $_SESSION["role"] !== "kasir") {
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
+            <?php if (isset($_SESSION["profile_image"]) && !empty($_SESSION["profile_image"])): ?>
+            <a href="" class="brand-link">
+                <img src="../../assets/img/<?= $_SESSION["profile_image"] ?>" alt="AdminLTE Logo"
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                <span class="brand-text font-weight-light">Admin</span>
+            </a>
+            <?php else: ?>
             <a href="" class="brand-link">
                 <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                     style="opacity: .8">
-                <span class="brand-text font-weight-light">Kasir</span>
+                <span class="brand-text font-weight-light">Admin</span>
             </a>
+            <?php endif; ?>
 
             <!-- Sidebar -->
             <div class="sidebar">

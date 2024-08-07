@@ -27,11 +27,13 @@ if(mysqli_num_rows($result) === 1){
     if(password_verify($password, $row_data["password"])){
         // Cek Role
         if($row_data["role"] === "admin"){
+          $_SESSION["profile_image"] = $row_data["image"];
           $_SESSION["role"] = "admin";
           header('Location:app/public/admin.php');
           exit;
         }
         if($row_data["role"] === "kasir"){
+          $_SESSION["profile_image"] = $row_data["image"];
           $_SESSION["role"] = "kasir";
           header('Location:app/public/kasir.php');
           exit;

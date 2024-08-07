@@ -28,7 +28,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Register a new user</p>
 
-                <form action="" method="post">
+                <form action="" method="post" enctype="multipart/form-data">
                     <div class="input-group mb-3">
                         <input type="text" name="username" class="form-control" placeholder="Username" id="username"
                             required>
@@ -67,6 +67,10 @@
                                 <label for="role" class="fas fa-user-plus"></label>
                             </div>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Upload profile picture</label>
+                        <input type="file" name="image" id="formFile">
                     </div>
                     <div class="row justify-content-center">
                         <!-- /.col -->

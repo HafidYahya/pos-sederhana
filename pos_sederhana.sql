@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2024 at 09:01 AM
+-- Generation Time: Aug 07, 2024 at 01:20 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -31,17 +31,18 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(30) DEFAULT NULL
+  `role` varchar(30) DEFAULT NULL,
+  `image` varchar(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(17, 'admin', '$2y$10$stiihXyhHF6Uakt4Iz9.fOTLvh4YBcbZRN1c/06Sw8RZz5St5dGCu', 'admin'),
-(18, 'admin123', '$2y$10$pdKcemchCPuGq55Yr9UfhO.BZywsvJzJpXgKf2SoD8dLf7VAKuMbi', 'admin'),
-(19, 'kasir', '$2y$10$ZBq7GNW4jJe7N5IS0QX02e12rF8xAZdjcF7Mw/Jmok41dyCGZzoCS', 'kasir');
+INSERT INTO `users` (`id`, `username`, `password`, `role`, `image`) VALUES
+(64, 'hafid', '$2y$10$QYwNNHhuTz1OcAP0LMjrKOZ91E1tjE51LlRMMO.HFVF5xr9GI5HaW', 'admin', 'profile.webp'),
+(65, 'kasir', '$2y$10$TgcFoyUpJpnb3GRwSdTXGeHn0oWlqmqVAZH3Wp5EagpwZeGHEBL66', 'kasir', NULL),
+(66, 'admin2', '$2y$10$FnAZ9Ms9eh1PK8nV0/ZJw.YUUa9NNODN1L4vk8JlgPJMaO.TbmPWi', 'admin', NULL);
 
 --
 -- Indexes for dumped tables
@@ -61,7 +62,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
