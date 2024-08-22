@@ -1,7 +1,12 @@
 <?php
 
 session_start();
-require 'assets/src/functions.php';
+require 'assets/src/functions/functions.php';
+
+if(!isset($_SESSION["role"]) || empty($_SESSION["role"])){
+    header('Location:index.php');
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +55,24 @@ require 'assets/src/functions.php';
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-danger" onclick="Swal.fire({
+                         title:'Are you sure you want to exit the application?',
+                         showDenyButton: true,  
+                         showConfirmButton: true ,
+                         confirmButtonColor:'#FF0000',
+                         denyButtonColor:'#999999',
+                         denyButtonText: 'Cancel',
+                         confirmButtonText: 'Log out' 
+                         }).then((result)=> {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                        window.location.href='logout.php'
+                        } else if (result.isDenied) {
+                        Swal.fire('Canceled', '', 'success');
+                        }
+                        });">Log out</button>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -62,6 +85,7 @@ require 'assets/src/functions.php';
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light"><?= $_SESSION["role"]; ?></span>
             </a>
+
 
             <!-- Sidebar -->
             <div class="sidebar">
@@ -86,6 +110,9 @@ require 'assets/src/functions.php';
                     </div>
                 </div>
                 <?php endif; ?>
+
+
+
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -769,6 +796,8 @@ require 'assets/src/functions.php';
     </div>
     <!-- ./wrapper -->
 
+    <!-- SweetAlert -->
+    <script src="assets/src/dist/sweetalert2.all.min.js"></script>
     <!-- jQuery -->
     <script src="assets/plugins/jquery/jquery.min.js"></script>
     <!-- jQuery UI 1.11.4 -->

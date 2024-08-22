@@ -70,7 +70,7 @@ function register($data){
 
               return false;
         }else{
-            move_uploaded_file($tmpNameFile, '/pos/assets/src/img/'.$fileName);
+            move_uploaded_file($tmpNameFile, '../img/'.$fileName);
         }
     }
 
@@ -101,6 +101,19 @@ function query($query){
         }
     }
     return $data;
+}
+
+
+// Delete Data
+function delete($username){
+    global $conn;
+    $stmt = $conn->prepare("DELETE FROM users WHERE username = ?");
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    return $stmt->affected_rows;
+   
+
+    
 }
 
 ?>

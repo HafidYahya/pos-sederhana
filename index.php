@@ -1,3 +1,11 @@
+<?php
+session_start();
+// Cek SESSION login
+if(isset($_SESSION["role"]) && !empty($_SESSION["role"])){
+    header('Location:dashboard.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,8 +78,7 @@
 
 </html>
 <?php
-session_start();
-require 'assets/src/functions.php';
+require 'assets/src/functions/functions.php';
 
 if(isset($_POST["login"])){
   $username = $_POST["username"];

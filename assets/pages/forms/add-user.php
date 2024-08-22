@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if(!isset($_SESSION["role"]) || empty($_SESSION["role"])){
+    header('Location:../../../index.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,6 +31,24 @@
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-outline-danger" onclick="Swal.fire({
+                         title:'Are you sure you want to exit the application?',
+                         showDenyButton: true,  
+                         showConfirmButton: true ,
+                         confirmButtonColor:'#FF0000',
+                         denyButtonColor:'#999999',
+                         denyButtonText: 'Cancel',
+                         confirmButtonText: 'Log out' 
+                         }).then((result)=> {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                        window.location.href='../../../logout.php'
+                        } else if (result.isDenied) {
+                        Swal.fire('Canceled', '', 'success');
+                        }
+                        });">Log out</button>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -34,20 +59,32 @@
             <a href="add-user.php" class="brand-link">
                 <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light">AdminLTE 3</span>
+                <span class="brand-text font-weight-light"><?= $_SESSION["role"]; ?></span>
             </a>
 
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
+                <?php if(isset($_SESSION["profile_image"]) && !empty($_SESSION["profile_image"])): ?>
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="../../src/img/<?=$_SESSION["profile_image"]?>" class="img-circle elevation-2"
+                            alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="add-user.php" class="d-block">Alexander Pierce</a>
+                        <a href="add-user.php" class="d-block"><?= $_SESSION["username"] ?></a>
                     </div>
                 </div>
+                <?php else: ?>
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="../../dist/img/profile_default.webp" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="add-user.php" class="d-block"><?= $_SESSION["username"] ?></a>
+                    </div>
+                </div>
+                <?php endif; ?>
 
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
@@ -63,12 +100,14 @@
                                 </p>
                             </a>
                         </li>
+                        <?php if(isset($_SESSION["role"]) && $_SESSION["role"] === "ADMIN"): ?>
                         <li class="nav-item">
                             <a href="../tables/data.php" class="nav-link active">
                                 <i class="nav-icon fas fa-users"></i>
                                 <p>User Management</p>
                             </a>
                         </li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -217,7 +256,7 @@
 <?php
 
 
-require '../../src/functions.php';
+require '../../src/functions/functions.php';
 if(isset($_POST["register"])){
     if(register($_POST)){
         echo "<script> 
