@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!isset($_SESSION["role"]) || empty($_SESSION["role"])){
+    header('Location:../../../index.php');
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,7 +46,7 @@ if(delete($user) > 0){
             icon: 'success',
             title: 'Data deleted successfully',
             showConfirmButton: false,
-            timer: 1500
+            timer:500
         }).then(function() {
             window.location.href = 'data.php';
         });
@@ -51,7 +58,7 @@ if(delete($user) > 0){
             icon: 'error',
             title: 'Data deletion failed',
             showConfirmButton: false,
-            timer: 1500
+            timer:500
         }).then(function() {
             window.location.href = 'data.php';
         });

@@ -70,7 +70,8 @@ function register($data){
 
               return false;
         }else{
-            move_uploaded_file($tmpNameFile, '../img/'.$fileName);
+            $targetDirectory = realpath(__DIR__ . '/../img') . '/';
+            move_uploaded_file($tmpNameFile, $targetDirectory . $fileName);
         }
     }
 
@@ -115,5 +116,128 @@ function delete($username){
 
     
 }
+
+function edit($data){
+    global $conn;
+    $old_profile_image = $data["old_profile_image"];
+    $old_status = $data["old_status"];
+    $old_password = $data["old_password"];
+    $old_username = $data["old_username"];
+
+    $id = $data["id"];
+    $fullname = $data["fullname"];
+    $username = $data["username"];
+    $email = $data["email"];
+    $no_hp = $data["no_hp"];
+    $password = $data["password"];
+    $confirm_password = $data["confirm_password"];
+    $role = $data["role"];
+    $status = $data["status"]?? $old_status;
+    $fileError = $_FILES["profile_image"]["error"];
+    
+    if($fileError === UPLOAD_ERR_OK){
+        // Cek gambar
+       $fileName = $_FILES["profile_image"]["name"];
+       $tmpNameFile = $_FILES["profile_image"]["tmp_name"];
+       $fileSize = $_FILES["profile_image"]["size"];
+       
+
+       $extensionFileValid = ["jpg", "jpeg", "png", "webp"];
+       $extensionFile = explode(".", $fileName);
+       $extensionFile = strtolower(end($extensionFile));
+
+    // Cek extension file
+
+    if(!empty($fileName)){
+        if(in_array($extensionFile, $extensionFileValid) === false){
+            echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Invalid file extension!!!',
+                  showConfirmButton: true
+    });
+              </script>";
+
+              return false;
+        }else{
+            $targetDirectory = realpath(__DIR__ . '/../img') . '/';
+            move_uploaded_file($tmpNameFile, $targetDirectory . $fileName);
+        }
+    }
+    }else{
+        $fileName = $old_profile_image;
+    }
+
+    // Cek apakah username baru sudah digunakan
+    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND username != ?");
+    $stmt->bind_param("ss", $username, $old_username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // Cek Username
+    if($result->fetch_assoc()){
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Username $username is already in use',
+                  showConfirmButton: true
+                });
+              </script>";
+        return false;
+    }
+
+    // Cek Password
+    if(isset($password) && !empty($password)){
+        if($password !== $confirm_password){
+            echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'warning',
+                  title: 'Password does not match',
+                  showConfirmButton: true
+                });
+              </script>";
+            return false;
+        }
+        // Enkripsi password baru
+        $password = password_hash($password, PASSWORD_DEFAULT);
+    } else {
+        // Jika password tidak diisi, gunakan password lama
+        $password = $old_password;
+    }
+
+
+    // Update Data
+    $stmt1 = $conn->prepare("UPDATE users SET fullname = ?, username = ?, email = ?, no_hp = ?, profile_image = ?, password = ?, role = ?, status = ? WHERE id = ?");
+    $stmt1->bind_param("ssssssssi", $fullname, $username, $email, $no_hp, $fileName, $password, $role, $status, $id);
+    $stmt1->execute();
+
+    // Cek perubahan data
+    if($stmt1->affected_rows > 0){
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'success',
+                  title: 'Data successfully updated',
+                  showConfirmButton: true
+                });
+              </script>";
+    } else {
+        echo "<script> 
+                 Swal.fire({
+                  position: 'center',
+                  icon: 'info',
+                  title: 'No changes were made',
+                  showConfirmButton: true
+                });
+              </script>";
+    }
+
+
+    return mysqli_affected_rows($conn);
+}
+
 
 ?>

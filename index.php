@@ -92,6 +92,19 @@ if(isset($_POST["login"])){
 
   if($result->num_rows > 0){
     $row_data = $result->fetch_assoc();
+    // Cek Status
+    if($row_data["status"] === "N"){
+        echo "<script>
+            Swal.fire({
+              position: 'warning',
+              icon: 'error',
+              title: 'Your account status is currently inactive',
+              showConfirmButton: true
+            });
+          </script>";
+          exit;
+
+    }
     // Cek password
     if(password_verify($password, $row_data["password"])){
         if($row_data["role"]==="ADMIN"){

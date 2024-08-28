@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 22, 2024 at 05:34 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Waktu pembuatan: 28 Agu 2024 pada 05.28
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 8.0.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Struktur dari tabel `products`
 --
 
 CREATE TABLE `products` (
@@ -43,7 +43,7 @@ CREATE TABLE `products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product_categories`
+-- Struktur dari tabel `product_categories`
 --
 
 CREATE TABLE `product_categories` (
@@ -55,7 +55,7 @@ CREATE TABLE `product_categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transactions`
+-- Struktur dari tabel `transactions`
 --
 
 CREATE TABLE `transactions` (
@@ -72,7 +72,7 @@ CREATE TABLE `transactions` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction_details`
+-- Struktur dari tabel `transaction_details`
 --
 
 CREATE TABLE `transaction_details` (
@@ -87,7 +87,7 @@ CREATE TABLE `transaction_details` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Struktur dari tabel `users`
 --
 
 CREATE TABLE `users` (
@@ -103,79 +103,83 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
+-- Dumping data untuk tabel `users`
 --
 
 INSERT INTO `users` (`id`, `fullname`, `username`, `email`, `no_hp`, `profile_image`, `password`, `role`, `status`) VALUES
-(23, 'Hafid Yahya', 'admin', 'admin@gmail.com', '082117611676', 'profile.webp', '$2y$10$.uBUIWDa.1b2WiDQEsztHO3oifLj.3OcFkbajeEvaeyiSec8dW9pe', 'ADMIN', 'Y');
+(23, 'Hafid Yahya', 'admin', 'admin@gmail.com', '082117611676', 'profile.webp', '$2y$10$.uBUIWDa.1b2WiDQEsztHO3oifLj.3OcFkbajeEvaeyiSec8dW9pe', 'ADMIN', 'Y'),
+(33, 'kadir', 'kadir', 'yuhuu@gmail.com', '120984765', 'kyz.jpg', '$2y$10$eK.lV6Vga.vNqLYev0hACe9vyukUhZ73176X7rlp0P87WyvfClu1e', 'KASIR', 'N'),
+(34, 'Yahya', 'yahya', 'yahya@gmail.com', '0987654321', NULL, '$2y$10$3OxwXaynlEn3ICRk/elH0O1U7Yi6npucMyqD6zi.c302PgiMyZPnW', 'KASIR', 'Y'),
+(35, 'Asep Saepuloh', 'asep', 'asep@gmail.com', '0987654321', '3.jpg', '$2y$10$nsLgae0A9UKFKtiqfxyGduol0Zv6u.Q6m3pNRyCKrKqKG1AavXLLO', 'ADMIN', 'Y'),
+(36, 'Rudy', 'rudy', 'rudy@gmail.com', '0987654321', '1.jpg', '$2y$10$LvQAbCa9LSRHDUUdQhxKVec34.SLFrSXgCR6DJIpfygGFhjWk/cku', 'ADMIN', 'Y');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `products`
+-- Indeks untuk tabel `products`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `product_categories`
+-- Indeks untuk tabel `product_categories`
 --
 ALTER TABLE `product_categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transactions`
+-- Indeks untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `transaction_details`
+-- Indeks untuk tabel `transaction_details`
 --
 ALTER TABLE `transaction_details`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Indeks untuk tabel `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `products`
+-- AUTO_INCREMENT untuk tabel `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product_categories`
+-- AUTO_INCREMENT untuk tabel `product_categories`
 --
 ALTER TABLE `product_categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `transactions`
+-- AUTO_INCREMENT untuk tabel `transactions`
 --
 ALTER TABLE `transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `transaction_details`
+-- AUTO_INCREMENT untuk tabel `transaction_details`
 --
 ALTER TABLE `transaction_details`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

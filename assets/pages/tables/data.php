@@ -190,8 +190,8 @@ $data = query("SELECT fullname,username,role,status FROM users");
                         }});"><i class="fas fa-trash"></i></a>
                                                         <!-- /Button Delete -->
                                                         <!-- Button Edit -->
-                                                        <a href="#" class="btn btn-success"><i
-                                                                class="fas fa-edit"></i></a>
+                                                        <a href="../forms/edit.php?username=<?= $row['username'] ?>"
+                                                            class="btn btn-success"><i class="fas fa-edit"></i></a>
                                                         <!-- /Button Edit -->
                                                     </div>
                                                 </td>
